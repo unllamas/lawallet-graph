@@ -77,8 +77,8 @@ export function Home() {
   }, [filteredTransactions]);
 
   return (
-    <div className='container mx-auto p-4'>
-      <div className='flex w-full justify-between'>
+    <div className='container p-4'>
+      <div className='flex justify-between'>
         <h1 className='text-2xl font-bold mb-4'>LaWallet Dashboard</h1>
         <div className='flex gap-2'>
           <Select value={transactionType} onValueChange={(value: TransactionType) => setTransactionType(value)}>
@@ -131,46 +131,44 @@ export function Home() {
         </Card>
       </div>
 
-      <div className='flex gap-4 w-full mb-4'>
+      <div className='flex gap-4 mb-4'>
         <CountTransactionsChart data={normalizedTransactionData} timeRange={timeRange} />
         <VolumeTransactionsChart data={normalizedTransactionVolume} timeRange={timeRange} />
       </div>
 
-      <div className='bg-white shadow rounded-lg mb-8'>
-        <Card>
-          <CardHeader>
-            <CardTitle>Top 5 Transactions</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className='w-[500px]'></TableHead>
-                  <TableHead>ID</TableHead>
-                  <TableHead>Date</TableHead>
-                  <TableHead className='text-right'>Amount</TableHead>
+      <Card>
+        <CardHeader>
+          <CardTitle>Top 5 Transactions</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className='w-[500px]'></TableHead>
+                <TableHead>ID</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead className='text-right'>Amount</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {top5Transactions.map((tx: any) => (
+                <TableRow key={tx.id}>
+                  <TableCell>
+                    {tx.type === 'inbound-transaction-ok' ? (
+                      <ArrowDown color='text-green-500' className='size-4 text-green-500' />
+                    ) : (
+                      <ArrowUp className='size-4' />
+                    )}
+                  </TableCell>
+                  <TableCell className='font-medium'>{tx.id}</TableCell>
+                  <TableCell>{timeAgo(tx.created_at)}</TableCell>
+                  <TableCell className='text-right'>{formatNumber(Number((tx.amount / 1000).toFixed(0)))}</TableCell>
                 </TableRow>
-              </TableHeader>
-              <TableBody>
-                {top5Transactions.map((tx: any) => (
-                  <TableRow key={tx.id}>
-                    <TableCell>
-                      {tx.type === 'inbound-transaction-ok' ? (
-                        <ArrowDown color='text-green-500' className='size-4 text-green-500' />
-                      ) : (
-                        <ArrowUp className='size-4' />
-                      )}
-                    </TableCell>
-                    <TableCell className='font-medium'>{tx.id}</TableCell>
-                    <TableCell>{timeAgo(tx.created_at)}</TableCell>
-                    <TableCell className='text-right'>{formatNumber(Number((tx.amount / 1000).toFixed(0)))}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-      </div>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
     </div>
   );
 }
