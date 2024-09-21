@@ -12,8 +12,9 @@ import { CountTransactionsChart } from './components/count-transactions-chart';
 import { VolumeTransactionsChart } from './components/volume-transactions-chart';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
-import transactions from '@/mock/100k.json';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import fetcher from '@/config/fetcher';
+import useSWR from 'swr';
 
 type TransactionType = 'all' | 'inbound' | 'internal' | 'outbound';
 type TimeRange = '90d' | '30d' | '7d';
@@ -22,6 +23,8 @@ export function Home() {
   const [currency] = useState('SAT');
   const [timeRange, setTimeRange] = useState<TimeRange>('7d');
   const [transactionType, setTransactionType] = useState<TransactionType>('all');
+
+  const { data: transactions } = useSWR('/api', fetcher);
 
   // Memoizar el filtrado de transacciones
   const filteredTransactions = useMemo(() => {

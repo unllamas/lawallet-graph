@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Html } from 'next/document';
 
 import '@/styles/globals.css';
 
@@ -13,8 +14,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className='dark h-full scroll-smooth'>
+    <Html lang='en' className='dark h-full scroll-smooth'>
       <body className='overflow-x-hidden antialiased'>{children}</body>
-    </html>
+    </Html>
   );
 }
