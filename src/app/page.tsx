@@ -1,9 +1,9 @@
-import { Home } from '@/features/home';
+import { HomePage } from '@/features/home';
 
 export default function Page() {
   return (
     <>
-      <Home />
+      <HomePage />
     </>
   );
 }

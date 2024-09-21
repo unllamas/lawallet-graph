@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import useSWR from 'swr';
 
 import { countStrategy, formatNumber, normalizeTransactions, timeAgo, volumeStrategy } from '@/lib/utils';
 
@@ -11,15 +12,14 @@ import ArrowUp from '@/components/icons/arrow-up';
 import { CountTransactionsChart } from './components/count-transactions-chart';
 import { VolumeTransactionsChart } from './components/volume-transactions-chart';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+
 import fetcher from '@/config/fetcher';
-import useSWR from 'swr';
 
 type TransactionType = 'all' | 'inbound' | 'internal' | 'outbound';
 type TimeRange = '90d' | '30d' | '7d';
 
-export function Home() {
+export function HomePage() {
   const [currency] = useState('SAT');
   const [timeRange, setTimeRange] = useState<TimeRange>('7d');
   const [transactionType, setTransactionType] = useState<TransactionType>('all');
