@@ -37,7 +37,7 @@ export function TransactionsChart({ transactions }: Props) {
     transactions.forEach((t) => {
       const hour = new Date(t.created_at * 1000).getHours();
       hourlyData[hour].count += 1;
-      hourlyData[hour].totalValue += t.content.tokens.BTC / 1000;
+      hourlyData[hour].totalValue += t?.content?.tokens?.BTC / 1000;
     });
 
     return hourlyData.map((data) => ({

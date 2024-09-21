@@ -20,7 +20,7 @@ export function LivePage() {
 
   const largestTransaction = useMemo(() => {
     if (!transactions) return 0;
-    return Math.max(...transactions.map((t: Note) => t.content.tokens.BTC));
+    return Math.max(...transactions.map((t: Note) => t?.content?.tokens?.BTC));
   }, [transactions]);
 
   const errorRate = useMemo(() => {
@@ -98,11 +98,11 @@ export function LivePage() {
             </TableHeader>
             <TableBody>
               {filteredTransactions?.map((tx: Note) => (
-                <TableRow key={tx.id}>
-                  <TableCell>{tx.id.slice(0, 8)}...</TableCell>
-                  <TableCell>{tx.type}</TableCell>
-                  <TableCell>{(tx.content.tokens.BTC / 1000).toFixed(0)}</TableCell>
-                  <TableCell>{timeAgo(tx.created_at)}</TableCell>
+                <TableRow key={tx?.id}>
+                  <TableCell>{tx?.id.slice(0, 8)}...</TableCell>
+                  <TableCell>{tx?.type}</TableCell>
+                  <TableCell>{(tx?.content?.tokens?.BTC / 1000).toFixed(0)}</TableCell>
+                  <TableCell>{timeAgo(tx?.created_at)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
